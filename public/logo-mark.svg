@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="lb-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A5F" />
+      <stop offset="100%" stop-color="#0F2847" />
+    </linearGradient>
+    <linearGradient id="lb-orange" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF7A45" />
+      <stop offset="100%" stop-color="#FF5722" />
+    </linearGradient>
+  </defs>
+
+  <!-- Squircle Container -->
+  <rect x="16" y="16" width="480" height="480" rx="112" fill="url(#lb-bg)" stroke="#2563EB" stroke-width="10" stroke-opacity="0.35" />
+
+  <!-- Ambient Top Glow -->
+  <circle cx="256" cy="80" r="160" fill="#2563EB" opacity="0.15" />
+
+  <!-- "L" Shape - White -->
+  <path d="M120 144 C120 130.745 130.745 120 144 120 L176 120 C189.255 120 200 130.745 200 144 L200 320 L264 320 C277.255 320 288 330.745 288 344 L288 368 C288 381.255 277.255 392 264 392 L144 392 C130.745 392 120 381.255 120 368 Z" fill="#FFFFFF" />
+
+  <!-- "B" Shape - Signature Radiant Orange -->
+  <path d="M272 144 C272 130.745 282.745 120 296 120 L360 120 C399.765 120 432 152.235 432 192 C432 214.4 421.68 234.4 405.6 247.2 C426.4 260.8 440 284.8 440 312 C440 356.185 404.185 392 360 392 L296 392 C282.745 392 272 381.255 272 368 Z M336 176 L336 228 L360 228 C373.2 228 384 217.2 384 202 C384 186.8 373.2 176 360 176 Z M336 284 L336 336 L364 336 C378 336 390 324 390 310 C390 296 378 284 364 284 Z" fill="url(#lb-orange)" />
+
+  <!-- Bridge connector spark / node between L and B -->
+  <circle cx="244" cy="356" r="16" fill="#FFB020" />
+</svg>
