@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mail, Phone, MapPin, ShieldCheck, CheckCircle2 } from "lucide-react";
+import { Mail, MapPin, ShieldCheck, CheckCircle2 } from "lucide-react";
 import { siteConfig, navLinks, transparencyGuarantees } from "@/lib/constants";
 import { Logo } from "@/components/shared/logo";
 
@@ -115,12 +115,13 @@ export function Footer() {
             </h3>
             <ul className="space-y-3">
               <li className="flex items-center gap-2.5 text-xs text-white/70">
-                <Phone className="h-4 w-4 shrink-0 text-orange" />
-                <span>{siteConfig.phone}</span>
-              </li>
-              <li className="flex items-center gap-2.5 text-xs text-white/70">
                 <Mail className="h-4 w-4 shrink-0 text-orange" />
-                <span>{siteConfig.email}</span>
+                <a
+                  href={`mailto:${siteConfig.email}`}
+                  className="hover:text-white transition-colors"
+                >
+                  {siteConfig.email}
+                </a>
               </li>
               <li className="flex items-start gap-2.5 text-xs text-white/70">
                 <MapPin className="h-4 w-4 shrink-0 text-orange mt-0.5" />

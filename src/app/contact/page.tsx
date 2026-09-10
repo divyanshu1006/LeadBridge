@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Phone, Mail, MessageCircle, MapPin, Clock, Sparkles, ShieldCheck, CheckCircle2 } from "lucide-react";
+import { Mail, MapPin, Clock, Sparkles, ShieldCheck, CheckCircle2 } from "lucide-react";
 import { siteConfig } from "@/lib/constants";
 import { ContactForm } from "@/components/forms/contact-form";
 import { FadeIn, HoverCard } from "@/components/motion/motion-wrapper";
@@ -12,26 +12,14 @@ export const metadata: Metadata = {
 
 const contactMethods = [
   {
-    icon: Phone,
-    title: "Direct Phone",
-    label: siteConfig.phone,
-    href: `tel:${siteConfig.phone.replace(/[^+\\d]/g, "")}`,
-  },
-  {
     icon: Mail,
-    title: "Email",
+    title: "Official Email",
     label: siteConfig.email,
     href: `mailto:${siteConfig.email}`,
   },
   {
-    icon: MessageCircle,
-    title: "WhatsApp",
-    label: "Chat with us on WhatsApp",
-    href: `https://wa.me/${siteConfig.whatsappNumber}?text=Hi!%20I%20run%20a%20recruitment%20agency%20and%20I%27m%20interested%20in%20learning%20about%20LeadBridge%20NCR.`,
-  },
-  {
     icon: MapPin,
-    title: "Coverage",
+    title: "Coverage Hubs",
     label: "Serving recruitment agencies across Delhi NCR",
     href: null,
   },
@@ -71,7 +59,10 @@ export default function ContactPage() {
                 Reach Us Directly
               </h2>
               <p className="mt-3 text-dark-gray leading-relaxed">
-                Whether you want to learn about our process, discuss your recruitment vertical, or simply ask a question — reach out through any channel below.
+                Whether you want to learn about our outbound process, discuss your recruitment vertical, or request a pilot — submit the form or email us directly at{" "}
+                <a href={`mailto:${siteConfig.email}`} className="font-semibold text-navy hover:text-orange transition-colors">
+                  {siteConfig.email}
+                </a>.
               </p>
             </div>
 

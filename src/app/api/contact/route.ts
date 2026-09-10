@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { contactFormSchema } from "@/lib/validations";
+import { siteConfig } from "@/lib/constants";
 
 export async function POST(request: Request) {
   try {
@@ -19,36 +20,55 @@ export async function POST(request: Request) {
     }
 
     const { name, company, email, phone, message } = result.data;
+    const targetEmail = process.env.CONTACT_FORM_TO_EMAIL || siteConfig.email;
 
-    // Log the submission (in production, send email via Resend/EmailJS)
-    console.log("📧 New contact form submission:", {
-      name,
+    // Log the submission
+    console.log("📧 New contact form submission received:", {
+      recipient: targetEmail,
+      senderName: name,
+      senderEmail: email,
+      senderPhone: phone,
       company: company || "Not provided",
-      email,
-      phone,
       message,
       timestamp: new Date().toISOString(),
     });
 
-    // TODO: Integrate with Resend (free tier: 100 emails/day)
-    // import { Resend } from 'resend';
-    // const resend = new Resend(process.env.RESEND_API_KEY);
-    // await resend.emails.send({
-    //   from: 'LeadBridge <noreply@leadbridge.in>',
-    //   to: process.env.CONTACT_FORM_TO_EMAIL!,
-    //   subject: `New Lead: ${name} from ${company || 'Unknown'}`,
-    //   html: `<h2>New Contact Form Submission</h2>
-    //     <p><strong>Name:</strong> ${name}</p>
-    //     <p><strong>Company:</strong> ${company || 'Not provided'}</p>
-    //     <p><strong>Email:</strong> ${email}</p>
-    //     <p><strong>Phone:</strong> ${phone}</p>
-    //     <p><strong>Message:</strong> ${message}</p>`,
-    // });
+    // If RESEND_API_KEY is configured in environment, dispatch via native fetch
+    if (process.env.RESEND_API_KEY) {
+      try {
+        await fetch("https://api.resend.com/emails", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            from: "LeadBridge NCR <onboarding@resend.dev>",
+            to: [targetEmail],
+            cc: [email],
+            reply_to: email,
+            subject: `New Lead Inquiry from ${name} - LeadBridge NCR`,
+            html: `
+              <h2>New Contact Form Inquiry</h2>
+              <p><strong>Name:</strong> ${name}</p>
+              <p><strong>Phone:</strong> ${phone}</p>
+              <p><strong>Email:</strong> ${email}</p>
+              <p><strong>Company:</strong> ${company || "Not provided"}</p>
+              <hr />
+              <p><strong>Message:</strong></p>
+              <p style="white-space: pre-line;">${message}</p>
+            `,
+          }),
+        });
+      } catch (apiErr) {
+        console.warn("Could not dispatch via Resend API:", apiErr);
+      }
+    }
 
     return NextResponse.json(
       {
         success: true,
-        message: "We'll get back to you within 24 hours!",
+        message: `Inquiry recorded for ${targetEmail}. Redirecting copy to your email client.`,
       },
       { status: 200 }
     );

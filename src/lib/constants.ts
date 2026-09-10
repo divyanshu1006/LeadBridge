@@ -5,9 +5,9 @@ export const siteConfig = {
   description:
     "We build targeted outbound systems designed to create conversations with companies actively hiring — so your staffing firm spends less time prospecting and more time placing candidates.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://leadbridgencr.vercel.app",
-  email: "contact@leadbridgencr.com",
-  phone: "+91-XXXXXXXXXX",
-  whatsappNumber: "91XXXXXXXXXX",
+  email: "leadbridgencr@zohomail.in",
+  phone: "",
+  whatsappNumber: "",
   calendlyUrl: "https://calendly.com/leadbridgencr/discovery",
   location: "Delhi NCR (Noida, Gurgaon, Faridabad, Greater Noida, Ghaziabad)",
 } as const;
